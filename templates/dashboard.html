@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Approval Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Analytics Dashboard</h2>
+
+    <div class="dashboard-links">
+        <a href="/">Prediction Page</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box blue">
+            <h3>Total Predictions</h3>
+            <p>{{ total_predictions }}</p>
+        </div>
+
+        <div class="stat-box green">
+            <h3>Approved Loans</h3>
+            <p>{{ approved_count }}</p>
+        </div>
+
+        <div class="stat-box red">
+            <h3>Rejected Loans</h3>
+            <p>{{ rejected_count }}</p>
+        </div>
+
+        <div class="stat-box purple">
+            <h3>Approval Rate</h3>
+            <p>{{ approval_rate }}%</p>
+        </div>
+
+        <div class="stat-box teal">
+            <h3>Average Confidence</h3>
+            <p>{{ average_confidence }}%</p>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <h3>Prediction Distribution</h3>
+        <canvas id="resultChart"></canvas>
+    </div>
+
+    <div class="table-card">
+        <h3>Recent Predictions</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Applicant Income</th>
+                    <th>Coapplicant Income</th>
+                    <th>Loan Amount</th>
+                    <th>Credit History</th>
+                    <th>Result</th>
+                    <th>Confidence</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in recent_predictions %}
+                <tr>
+                    <td>{{ row['time'] }}</td>
+                    <td>{{ row['applicant_income'] }}</td>
+                    <td>{{ row['coapplicant_income'] }}</td>
+                    <td>{{ row['loan_amount'] }}</td>
+                    <td>{{ row['credit_history'] }}</td>
+                    <td>{{ row['result'] }}</td>
+                    <td>{{ row['confidence'] }}</td>
+                    <td>{{ row['reason'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+  const labels = JSON.parse('{{ chart_labels | tojson | safe }}');
+  const values = JSON.parse('{{ chart_values | tojson | safe }}');
+
+    const ctx = document.getElementById('resultChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: ['#0072ff', '#dc3545', '#28a745', '#ffb74d']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

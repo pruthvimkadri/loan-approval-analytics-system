@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Approval System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: #111;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            color: #00c6ff;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+
+        .sidebar a:hover {
+            color: #00c6ff;
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00c6ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0072ff;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        iframe {
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🏦 Loan AI</h2>
+        <a href="/">Dashboard</a>
+        <a href="/login">Logout</a>
+
+        <hr>
+
+        <h4>Support</h4>
+        <p style="font-size:12px;">UPI: yourname@upi</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <h1>Loan Approval Prediction</h1>
+
+        <!-- Form -->
+        <div class="card">
+            <form action="/predict" method="post">
+
+                Gender:
+                <select name="Gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+
+                Married:
+                <select name="Married">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+
+                Dependents:
+                <select name="Dependents">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3+</option>
+                </select>
+
+                Education:
+                <select name="Education">
+                    <option>Graduate</option>
+                    <option>Not Graduate</option>
+                </select>
+
+                Employment:
+                <select name="Self_Employed">
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+
+                Applicant Income:
+                <input type="number" name="ApplicantIncome">
+
+                Coapplicant Income:
+                <input type="number" name="CoapplicantIncome">
+
+                Loan Amount:
+                <input type="number" name="LoanAmount">
+
+                Loan Term:
+                <input type="number" name="Loan_Term">
+
+                Credit History:
+                <select name="Credit_History">
+                    <option>Good</option>
+                    <option>Bad</option>
+                </select>
+
+                Property Area:
+                <select name="Property_Area">
+                    <option>Urban</option>
+                    <option>Semiurban</option>
+                    <option>Rural</option>
+                </select>
+
+                <button type="submit">Predict</button>
+            </form>
+        </div>
+
+        <!-- Result -->
+        {% if prediction_text %}
+        <div class="card result">
+            <h2>Result: {{ prediction_text }}</h2>
+            <h3>Confidence: {{ probability }}%</h3>
+            <p>Reason: {{ reason }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Power BI Dashboard -->
+       <a href="/dashboard">
+    <button type="button">Go to Dashboard</button>
+</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

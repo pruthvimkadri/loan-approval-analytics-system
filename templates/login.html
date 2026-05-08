@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Loan Prediction</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            color: white;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00c6ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0072ff;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #ccc;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+    <h2>🔐 Login</h2>
+
+    <form method="POST" action="/login">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="footer">
+        Loan Approval System
+    </div>
+</div>
+
+</body>
+</html>
